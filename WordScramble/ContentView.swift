@@ -12,13 +12,13 @@ struct ContentView: View {
     @State private var usedWords = [String]()
     @State private var rootWord = ""
     @State private var newWord = ""
+    @State private var scoreLetters = 0
     
     @State private var errorTitle = ""
     @State private var errorMessage = ""
     @State private var showingError = false
-    
-    
-    
+        
+
     var body: some View {
         NavigationStack {
             List {
@@ -35,6 +35,10 @@ struct ContentView: View {
                         
                     }
                 }
+                Section {
+                    
+                    Text("Score is: \(usedWords.count + scoreLetters)")
+                }
                 
             }
             .navigationTitle(rootWord)
@@ -42,6 +46,8 @@ struct ContentView: View {
                 Button("Launch") {
                     startGame()
                     usedWords = []
+                    scoreLetters = 0
+                    
                 }
             }
             .onSubmit(addNewWord)
@@ -88,6 +94,7 @@ struct ContentView: View {
         
         withAnimation {
             usedWords.insert(answer, at: 0)
+            scoreLetters = scoreLetters + answer.count
         }
         newWord = ""
     }
