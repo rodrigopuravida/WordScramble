@@ -35,8 +35,15 @@ struct ContentView: View {
                         
                     }
                 }
+                
             }
             .navigationTitle(rootWord)
+            .toolbar {
+                Button("Launch") {
+                    startGame()
+                    usedWords = []
+                }
+            }
             .onSubmit(addNewWord)
             .onAppear(perform: startGame)
             .alert(errorTitle, isPresented: $showingError) {
@@ -45,7 +52,10 @@ struct ContentView: View {
                 Text(errorMessage)
             }
         }
+        
+        
     }
+    
     func addNewWord() {
         let answer = newWord.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         
