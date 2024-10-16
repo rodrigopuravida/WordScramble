@@ -71,6 +71,11 @@ struct ContentView: View {
             return
         }
         
+        guard startsWithStartword(word: answer) else {
+            wordError(title: "Word chosen uses start letters from root", message: "Use something that does not start with first three words")
+            return
+        }
+        
         withAnimation {
             usedWords.insert(answer, at: 0)
         }
@@ -122,6 +127,19 @@ struct ContentView: View {
             return false
         }
         return true
+    }
+    
+    func startsWithStartword(word: String) -> Bool {
+        
+        let tempWord = rootWord
+        let firstThreeLetters = String(tempWord.prefix(word.count))
+        
+        if(firstThreeLetters == word) {
+            return false
+        }
+        
+        return true
+
     }
     
     func wordError(title: String, message: String) {
